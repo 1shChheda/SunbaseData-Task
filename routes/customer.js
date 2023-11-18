@@ -9,5 +9,7 @@ router.get('/create-customer', tokenVerify, customerCtrl.getCreateCustomer);
 
 router.post('/create-customer', tokenVerify, customerCtrl.postCreateCustomer);
 
+router.get('/customers-list', tokenVerify, customerCtrl.getCustomerList);
+
 
 module.exports = router;

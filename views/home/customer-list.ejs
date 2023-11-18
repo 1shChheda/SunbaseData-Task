@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer List</title>
+    <link rel="stylesheet" href="/css/customerList.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <h1>Customer List</h1>
+    </header>
+    <main>
+        <div class="customer-list">
+            <% customers.forEach(customer=> { %>
+                <div class="customer">
+                    <div class="customer-info">
+                        <h2>
+                            <%= customer.first_name %>
+                                <%= customer.last_name %>
+                        </h2>
+                        <p><strong>Email:</strong>
+                            <%= customer.email %>
+                        </p>
+                        <p><strong>Street:</strong>
+                            <%= customer.street %>
+                        </p>
+                        <p><strong>Address:</strong>
+                            <%= customer.address %>
+                        </p>
+                        <p><strong>City:</strong>
+                            <%= customer.city %>
+                        </p>
+                        <p><strong>State:</strong>
+                            <%= customer.state %>
+                        </p>
+                        <p><strong>Phone:</strong>
+                            <%= customer.phone %>
+                        </p>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </main>
+</body>
+
+</html>

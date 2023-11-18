@@ -41,7 +41,39 @@ const postCreateCustomer = async (req, res) => {
         if (err.response.status === 401) {
             return res.status(401).send('Invalid Authorization');
         } else if (err.response.status === 500) {
-            return res.status(400).send('Invalid Command');
+            return res.status(500).send('Invalid Command');
+        } else {
+            return res.status(500).send('Something went wrong');
+        }
+    }
+};
+
+const getCustomerList = async (req, res) => {
+    try {
+        const accessToken = req.session.accessToken;
+        if (!accessToken) {
+            return res.status(401).render('error', {
+                pageTitle: 'Unauthorized',
+                errorMessage: 'Invalid Authorization'
+            });
+        }
+
+        const response = await axios.get('https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+
+        const customers = response.data;
+        res.render('home/customer-list', {
+            customers: customers
+        });
+    } catch (err) {
+        console.error('Error fetching customer list:', err.response.data);
+        if (err.response.status === 401) {
+            return res.status(401).send('Invalid Authorization');
+        } else if (err.response.status === 500) {
+            return res.status(500).send('Invalid Command');
         } else {
             return res.status(500).send('Something went wrong');
         }
@@ -51,5 +83,6 @@ const postCreateCustomer = async (req, res) => {
 module.exports = {
     getDashboard: getDashboard,
     getCreateCustomer: getCreateCustomer,
-    postCreateCustomer: postCreateCustomer
+    postCreateCustomer: postCreateCustomer,
+    getCustomerList: getCustomerList
 }
