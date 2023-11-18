@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Customer</title>
+    <link rel="stylesheet" href="/css/deleteCustomer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <h1>Delete Customer</h1>
+    </header>
+    <main>
+        <div class="delete-form">
+            <form action="/delete-customer" method="post">
+                <label for="uuid">Customer UUID:</label>
+                <input type="text" id="uuid" name="uuid" placeholder="Enter UUID">
+                <button type="submit">Delete Customer</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

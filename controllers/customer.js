@@ -51,12 +51,6 @@ const postCreateCustomer = async (req, res) => {
 const getCustomerList = async (req, res) => {
     try {
         const accessToken = req.session.accessToken;
-        if (!accessToken) {
-            return res.status(401).render('error', {
-                pageTitle: 'Unauthorized',
-                errorMessage: 'Invalid Authorization'
-            });
-        }
 
         const response = await axios.get('https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=get_customer_list', {
             headers: {
@@ -65,6 +59,7 @@ const getCustomerList = async (req, res) => {
         });
 
         const customers = response.data;
+        // console.log(customers);
         res.render('home/customer-list', {
             customers: customers
         });
@@ -80,9 +75,47 @@ const getCustomerList = async (req, res) => {
     }
 };
 
+const getDeleteCustomer = async (req, res) => {
+    res.render('home/delete-customer');
+};
+
+const postDeleteCustomer = async (req, res) => {
+    const { uuid } = req.body;
+
+    try {
+        const accessToken = req.session.accessToken;
+
+        const response = await axios.post(`https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=delete&uuid=${uuid}`,{
+            cmd: 'delete',
+            uuid: uuid
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 200) {
+            return res.status(200).send('Successfully deleted');
+        } else if (response.status === 400) {
+            return res.status(400).send('UUID not found');
+        } else {
+            return res.status(500).send('Error: Not deleted');
+        }
+    } catch (err) {
+        console.error('Error deleting customer:', err);
+        if (err.response.status === 401) {
+            return res.status(401).send('Invalid Authorization');
+        } else {
+            return res.status(500).send('Something went wrong');
+        }
+    }
+};
+
 module.exports = {
     getDashboard: getDashboard,
     getCreateCustomer: getCreateCustomer,
     postCreateCustomer: postCreateCustomer,
-    getCustomerList: getCustomerList
+    getCustomerList: getCustomerList,
+    getDeleteCustomer: getDeleteCustomer,
+    postDeleteCustomer: postDeleteCustomer
 }
