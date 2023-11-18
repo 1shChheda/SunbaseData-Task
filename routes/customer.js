@@ -5,5 +5,9 @@ const customerCtrl = require('../controllers/customer')
 
 router.get('/', tokenVerify, customerCtrl.getDashboard);
 
+router.get('/create-customer', tokenVerify, customerCtrl.getCreateCustomer);
+
+router.post('/create-customer', tokenVerify, customerCtrl.postCreateCustomer);
+
 
 module.exports = router;

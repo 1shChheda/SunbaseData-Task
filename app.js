@@ -24,7 +24,7 @@ app.use(session({
 const authRoutes = require('./routes/auth');
 app.use(authRoutes);
 
-const homeRoutes = require('./routes/home');
+const homeRoutes = require('./routes/customer');
 app.use(homeRoutes);
 
 app.listen(PORT, () => {
