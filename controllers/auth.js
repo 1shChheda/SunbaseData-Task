@@ -16,10 +16,10 @@ const postUserLogin = async (req, res) => {
             password: password
         });
 
-        console.log(response)
+        // console.log(response)
         const accessToken = response.data.access_token;
-        
-        res.redirect('/dashboard');
+        req.session.accessToken = accessToken;
+        res.redirect('/');
     } catch (err) {
         console.error('Error authenticating user:', err.response.data);
         // throw err;

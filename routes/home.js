@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const tokenVerify = require('../middlewares/tokenVerify');
-const homeCtrl = require('../controllers/home')
+const customerCtrl = require('../controllers/customer')
 
-router.get('/dashboard', homeCtrl.getDashboard);
-// router.get('/dashboard', tokenVerify, homeCtrl.getDashboard);
+router.get('/', tokenVerify, customerCtrl.getDashboard);
+
 
 module.exports = router;

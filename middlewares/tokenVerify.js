@@ -1,11 +1,15 @@
-const tokenVerify = (req, res, next) => {
-    const bearerToken = req.session.accessToken;
+const axios = require('axios');
 
-    if (!bearerToken) {
-        res.redirect('/login');
-    }
+const tokenVerify = async (req, res, next) => {
+  const accessToken = req.session.accessToken;
 
-    next();
+  if (!accessToken) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  req.headers.authorization = `Bearer ${accessToken}`;
+
+  next();
 };
 
 module.exports = tokenVerify;
