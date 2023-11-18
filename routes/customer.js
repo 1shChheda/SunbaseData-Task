@@ -15,5 +15,9 @@ router.get('/delete-customer', tokenVerify, customerCtrl.getDeleteCustomer);
 
 router.post('/delete-customer', tokenVerify, customerCtrl.postDeleteCustomer);
 
+router.get('/update-customer', tokenVerify, customerCtrl.getUpdateCustomer);
+
+router.post('/update-customer', tokenVerify, customerCtrl.postUpdateCustomer);
+
 
 module.exports = router;

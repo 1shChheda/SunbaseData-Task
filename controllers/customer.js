@@ -85,7 +85,7 @@ const postDeleteCustomer = async (req, res) => {
     try {
         const accessToken = req.session.accessToken;
 
-        const response = await axios.post(`https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=delete&uuid=${uuid}`,{
+        const response = await axios.post(`https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=delete&uuid=${uuid}`, {
             cmd: 'delete',
             uuid: uuid
         }, {
@@ -111,11 +111,57 @@ const postDeleteCustomer = async (req, res) => {
     }
 };
 
+const getUpdateCustomer = async (req, res) => {
+    res.render('home/update-customer');
+};
+
+const postUpdateCustomer = async (req, res) => {
+    const { uuid, first_name, last_name, street, address, city, state, email, phone } = req.body;
+
+    try {
+        const accessToken = req.session.accessToken;
+
+        const response = await axios.post(`https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp?cmd=update&uuid=${uuid}`, {
+            cmd: 'update',
+            uuid: uuid,
+            first_name: first_name,
+            last_name: last_name,
+            street: street,
+            address: address,
+            city: city,
+            state: state,
+            email: email,
+            phone: phone
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+
+        if (response.status === 200) {
+            return res.status(200).send('Successfully updated');
+        } else if (response.status === 400) {
+            return res.status(400).send('Body is Empty');
+        } else {
+            return res.status(500).send('UUID not found');
+        }
+    } catch (err) {
+        console.error('Error updating customer:', err);
+        if (err.response.status === 401) {
+            return res.status(401).send('Invalid Authorization');
+        } else {
+            return res.status(500).send('Something went wrong');
+        }
+    }
+};
+
 module.exports = {
     getDashboard: getDashboard,
     getCreateCustomer: getCreateCustomer,
     postCreateCustomer: postCreateCustomer,
     getCustomerList: getCustomerList,
     getDeleteCustomer: getDeleteCustomer,
-    postDeleteCustomer: postDeleteCustomer
+    postDeleteCustomer: postDeleteCustomer,
+    getUpdateCustomer: getUpdateCustomer,
+    postUpdateCustomer: postUpdateCustomer
 }
