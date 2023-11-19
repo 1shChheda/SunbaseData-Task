@@ -1,11 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Homepage</title>
-  <link rel="stylesheet" href="/css/login.css">
+  <title>Customer List</title>
+  <link rel="stylesheet" href="/css/customerList.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-  <h1>Congrats! YOU MADE IT</h1>
+  <header>
+    <h1>Customer List</h1>
+  </header>
+  <main>
+    <div class="table-container">
+      <table class="customer-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Street</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Phone</th>
+            <th>UUID</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% customers.forEach(customer=> { %>
+            <tr class="customer-row">
+              <td>
+                <%= customer.first_name %>
+                  <%= customer.last_name %>
+              </td>
+              <td>
+                <%= customer.email %>
+              </td>
+              <td>
+                <%= customer.street %>
+              </td>
+              <td>
+                <%= customer.address %>
+              </td>
+              <td>
+                <%= customer.city %>
+              </td>
+              <td>
+                <%= customer.state %>
+              </td>
+              <td>
+                <%= customer.phone %>
+              </td>
+              <td>
+                <%= customer.uuid %>
+              </td>
+              <td class="button-form">
+                <form action="/delete-customer" method="POST" class="delete-form">
+                  <button class="delete-button-form" type="submit">Delete</button>
+                  <input type="hidden" name="uuid" value="<%= customer.uuid %>">
+                </form>
+                <a href="/update-customer">
+                  <button class="edit-button">Edit</button>
+                </a>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <div class="add-customer-button-container">
+      <a href="/create-customer">
+        <button class="add-customer-button">Add Customer</button>
+      </a>
+    </div>
+  </main>
 </body>
+
 </html>

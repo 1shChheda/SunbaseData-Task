@@ -1,7 +1,8 @@
 body,
 h1,
 h2,
-p {
+p,
+table {
     margin: 0;
     padding: 0;
 }
@@ -26,49 +27,109 @@ h1 {
 
 main {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
-.customer-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    max-width: 1200px;
+.table-container {
+    overflow-x: auto;
+}
+
+.customer-table {
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.customer {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 15px;
-    overflow: hidden;
-    width: 300px;
+.customer-table th,
+.customer-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
 }
 
-.customer-info {
-    padding: 15px;
+.customer-table th {
+    background-color: #3498db;
+    color: #fff;
 }
 
-.customer h2 {
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.customer-row:hover {
+    background-color: #ecf0f1;
 }
 
-.customer p {
-    margin-bottom: 8px;
+.edit-button {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button-form {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.delete-button-form {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.edit-button:hover {
+    background-color: #27ae60;
+}
+
+.delete-button-form:hover {
+    background-color: #e14533;
+}
+
+.add-customer-button-container {
+    margin-top: 10px;
+}
+
+.add-customer-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-customer-button:hover {
+    background-color: #2980b9;
 }
 
 @media (max-width: 768px) {
-    .customer {
-        width: calc(50% - 30px);
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
     }
-}
 
-@media (max-width: 480px) {
-    .customer {
-        width: calc(100% - 30px);
+    .customer-table th,
+    .customer-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .edit-button,
+    .delete-button {
+        padding: 6px 10px;
+    }
+
+    .add-customer-button {
+        padding: 8px 12px;
     }
 }

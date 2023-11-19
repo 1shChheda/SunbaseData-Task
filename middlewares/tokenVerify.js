@@ -4,7 +4,8 @@ const tokenVerify = async (req, res, next) => {
   const accessToken = req.session.accessToken;
 
   if (!accessToken) {
-    return res.status(401).send('Unauthorized');
+    // res.status(401).send('Unauthorized');
+    return res.redirect('/login');
   }
 
   req.headers.authorization = `Bearer ${accessToken}`;

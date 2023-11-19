@@ -1,10 +1,5 @@
 const axios = require('axios');
 
-const getDashboard = async (req, res) => {
-
-    res.render('home/dashboard');
-};
-
 const getCreateCustomer = async (req, res) => {
     res.render('home/create-customer');
 };
@@ -32,7 +27,7 @@ const postCreateCustomer = async (req, res) => {
         });
 
         if (response.status === 201) {
-            return res.status(201).send('Customer created successfully');
+            return res.status(201).send(`Customer created successfully <a href="/">Go To HOMEPAGE</a>`);
         } else {
             return res.status(400).send('Failed to create customer: First Name or Last Name is missing');
         }
@@ -60,7 +55,7 @@ const getCustomerList = async (req, res) => {
 
         const customers = response.data;
         // console.log(customers);
-        res.render('home/customer-list', {
+        res.render('home/dashboard', {
             customers: customers
         });
     } catch (err) {
@@ -95,7 +90,7 @@ const postDeleteCustomer = async (req, res) => {
         });
 
         if (response.status === 200) {
-            return res.status(200).send('Successfully deleted');
+            return res.status(200).send('Successfully deleted <a href="/">Go To HOMEPAGE</a>');
         } else if (response.status === 400) {
             return res.status(400).send('UUID not found');
         } else {
@@ -139,7 +134,7 @@ const postUpdateCustomer = async (req, res) => {
         });
 
         if (response.status === 200) {
-            return res.status(200).send('Successfully updated');
+            return res.status(200).send('Successfully updated <a href="/">Go To HOMEPAGE</a>');
         } else if (response.status === 400) {
             return res.status(400).send('Body is Empty');
         } else {
@@ -156,7 +151,6 @@ const postUpdateCustomer = async (req, res) => {
 };
 
 module.exports = {
-    getDashboard: getDashboard,
     getCreateCustomer: getCreateCustomer,
     postCreateCustomer: postCreateCustomer,
     getCustomerList: getCustomerList,
